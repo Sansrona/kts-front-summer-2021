@@ -10,7 +10,7 @@ export default class GitHubStore implements IGitHubStore {
     // TODO: реализовать интерфейс IGitHubStore
 
     async getOrganizationReposList<RepoItem={}>({organizationName}: GetOrganizationReposListParams): Promise<ApiResp<RepoItem[]>> {
-       return await this.apiStore.request({method: HTTPMethod.GET, endpoint:`/orgs/${organizationName}/repos` , headers: {
+       return await this.apiStore.request({ HTTPMethod.GET, endpoint:`/orgs/${organizationName}/repos` , headers: {
             'Content-Type': 'application/json;charset=utf-8'
           }, data: {}});
 

@@ -11,14 +11,14 @@ export default class ApiStore implements IApiStore {
 
 
     async request<SuccessT, ErrorT = any, ReqT = {}>({ method, endpoint, headers, data }: RequestParams<ReqT>): Promise<ApiResponse<SuccessT, ErrorT>> {
+        const query = qs.stringify(data);
+        const url = method === 'GET' ? `${this.baseUrl}${endpoint}${query}`:`${this.baseUrl}${endpoint}`
+        const options =  method === 'GET'
+         ? {method: method, headers: headers,}
+         : {method: method, headers: headers,body: JSON.stringify(data)}
         try {
-            const query = qs.stringify(data);
-            const response = await fetch(`${this.baseUrl}${endpoint}${query}`, {
-                method: method,
-                headers: headers,
-                //body: JSON.stringify(data)
-
-            });
+            
+            const response = await fetch(url, options);
             return {
                 success: true,
                 data: await response.json(),
