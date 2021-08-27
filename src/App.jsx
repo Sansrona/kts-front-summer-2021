@@ -1,16 +1,10 @@
-import './App.css';
-import './normalize.css'
-import { RepoCard, Input, SearchButton, RepoList } from './layouts';
+import "./App.css";
+import "./normalize.css";
+import { RepoList } from "./components";
 
 function App() {
   return (
     <div>
-      <RepoCard username='kts-school-frontend' />
-      <RepoCard username='kts-school-frontendkts-school-frontendkts-school-frontendkts-school-frontend' />
-      <Input />
-      <Input disabled />
-      <SearchButton />
-      <SearchButton disabled />
       <RepoList />
     </div>
   );
