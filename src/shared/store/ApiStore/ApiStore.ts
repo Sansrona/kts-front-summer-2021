@@ -1,10 +1,10 @@
 import qs from "qs";
 
-import { ApiResponse, IApiStore, RequestParams } from "./types";
+import { ApiResponse, IApiStore, RequestParams, StatusHTTP } from "./types";
 
 export default class ApiStore implements IApiStore {
   readonly baseUrl: string;
-  constructor(baseUrl: "https://api.github.com") {
+  constructor(baseUrl: string) {
     this.baseUrl = baseUrl;
   }
 
@@ -20,12 +20,20 @@ export default class ApiStore implements IApiStore {
         : `${this.baseUrl}${endpoint}`;
     const options =
       method === "GET"
-        ? { method: method, headers: headers }
-        : { method: method, headers: headers, body: JSON.stringify(data) };
+        ? { method, headers }
+        : { method, headers, body: JSON.stringify(data) };
     try {
       const response = await fetch(url, options);
+      if (response.ok) {
+        return {
+          success: true,
+          data: await response.json(),
+          status: response.status,
+        };
+      }
+
       return {
-        success: true,
+        success: false,
         data: await response.json(),
         status: response.status,
       };
@@ -33,7 +41,7 @@ export default class ApiStore implements IApiStore {
       return {
         success: false,
         data: e,
-        status: 404,
+        status: StatusHTTP.UNEXPECTED_ERROR,
       };
     }
   }

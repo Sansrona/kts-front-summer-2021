@@ -1,7 +1,11 @@
+import { ApiResponse } from "src/shared/store/ApiStore/types";
+
 // export interface GetOrganizationReposListParams { }
-export interface ApiResp<RepoItem> {
-  data: RepoItem;
-}
+export type RepoItem = {
+  owner: string;
+  name: string;
+  date: string;
+};
 
 export interface GetOrganizationReposListParams {
   organizationName: string;
@@ -14,6 +18,6 @@ export interface PostSomeDataPrams<ReqT> {
 export interface IGitHubStore {
   getOrganizationReposList<RepoItem>(
     params: GetOrganizationReposListParams
-  ): Promise<ApiResp<RepoItem[]>>;
+  ): Promise<ApiResponse<RepoItem[], any>>;
   //postSomeData<ReqT={}>(params:PostSomeDataPrams<ReqT>);
 }
