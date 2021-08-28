@@ -9,7 +9,11 @@ type ButtonProps = React.PropsWithChildren<{
   disabled?: boolean;
 }>;
 
-function Button({ disabled = false, children, onClick }: ButtonProps) {
+const Button: React.FC<ButtonProps> = ({
+  disabled = false,
+  children,
+  onClick,
+}) => {
   return (
     <>
       <button
@@ -22,6 +26,6 @@ function Button({ disabled = false, children, onClick }: ButtonProps) {
       </button>
     </>
   );
-}
+};
 
 export default Button;

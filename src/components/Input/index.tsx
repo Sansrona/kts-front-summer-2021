@@ -2,13 +2,13 @@ import React from "react";
 
 import styles from "./input.module.css";
 
-interface IInput {
+type InputProps = {
   value: string;
   placeholder: string;
   onChange: (someValue: string) => void;
-}
+};
 
-function Input({ value, placeholder, onChange }: IInput): JSX.Element {
+const Input: React.FC<InputProps> = ({ value, placeholder, onChange }) => {
   return (
     <>
       <input
@@ -20,6 +20,6 @@ function Input({ value, placeholder, onChange }: IInput): JSX.Element {
       />
     </>
   );
-}
+};
 
 export default Input;

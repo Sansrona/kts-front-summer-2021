@@ -2,9 +2,12 @@ import { ApiResponse } from "src/shared/store/ApiStore/types";
 
 // export interface GetOrganizationReposListParams { }
 export type RepoItem = {
-  owner: string;
   name: string;
-  date: string;
+  owner: {
+    avatar_url: string;
+    login: string;
+  };
+  updated_at: string;
 };
 
 export interface GetOrganizationReposListParams {

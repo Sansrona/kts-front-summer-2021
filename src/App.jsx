@@ -1,11 +1,10 @@
 import "./App.css";
-import "./normalize.css";
-import { RepoList } from "./components";
+import { RepoSearchPage } from "@components/";
 
 function App() {
   return (
     <div>
-      <RepoList />
+      <RepoSearchPage />
     </div>
   );
 }
