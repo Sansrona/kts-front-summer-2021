@@ -12,9 +12,9 @@
      filter: brightness(1.5);
 }
 
-.disabled{
+.search:disabled{
     background: var(--border-color);
-}
-.disabled:hover{
     filter: none;
+
 }
+

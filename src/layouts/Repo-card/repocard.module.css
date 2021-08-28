@@ -50,6 +50,7 @@
 
 .metainfo {
     color: var(--secondary-color);
+    display: inline;
     vertical-align: middle;
 }
 

@@ -1,5 +1,4 @@
 import './App.css';
-import './normalize.css'
 import { RepoCard, Input, SearchButton, RepoList } from './layouts';
 
 function App() {

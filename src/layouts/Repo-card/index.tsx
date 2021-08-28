@@ -3,11 +3,11 @@ import styles from './repocard.module.css';
 import StarIcon from '../../assets/icons/star.svg';
 import Avatar from './avatar.png';
 
-type s={
+type RepoCardProps={
     username:string
 }
 
-function RepoCard({username}:s) {
+const RepoCard: React.FC<RepoCardProps> = ({username}) => {
     return (
         <div className={styles.repocard}>
             <img src={Avatar} alt="Avatar" className={styles.avatar}/>
