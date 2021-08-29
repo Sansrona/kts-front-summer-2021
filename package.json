@@ -11,6 +11,7 @@
     "@types/qs": "^6.9.7",
     "@types/react": "^17.0.19",
     "@types/react-dom": "^17.0.9",
+    "antd": "^4.16.13",
     "classnames": "^2.3.1",
     "dayjs": "^1.10.6",
     "qs": "^6.10.1",

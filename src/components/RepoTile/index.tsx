@@ -7,20 +7,20 @@ import { RepoItem } from "src/store/GitHubStore/types";
 import styles from "./repoTile.module.css";
 
 type RepoTileProps = RepoItem & {
-  onClick: () => void;
+  onRepoClick: (thisRepo: string) => void;
 };
 
 const RepoTile: React.FC<RepoTileProps> = ({
   owner,
   name,
   updated_at,
-  onClick,
+  onRepoClick,
 }) => {
   const setDate = () => {
     return dayjs(updated_at).format("YYYY-MM-DD");
   };
   return (
-    <div className={styles.repocard} onClick={onClick}>
+    <div className={styles.repocard} onClick={() => onRepoClick(name)}>
       <Avatar src={owner.avatar_url} alt="Avatar" className={styles.avatar} />
       <div className={styles.cardtitle}>
         <p className={styles.title}>{name}</p>

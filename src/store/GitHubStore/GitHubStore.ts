@@ -1,6 +1,10 @@
 import ApiStore from "../../shared/store/ApiStore";
 import { ApiResponse, HTTPMethod } from "../../shared/store/ApiStore/types";
-import { GetOrganizationReposListParams, IGitHubStore } from "./types";
+import {
+  GetOrganizationRepoBranchesListParams,
+  GetOrganizationReposListParams,
+  IGitHubStore,
+} from "./types";
 
 export default class GitHubStore implements IGitHubStore {
   private readonly apiStore = new ApiStore("https://api.github.com"); // TODO: не забудьте передать baseUrl в конструктор
@@ -21,5 +25,21 @@ export default class GitHubStore implements IGitHubStore {
 
     // TODO: Здесь сделайте вызов из this.apiStore и верните результат
     // Документация github: https://docs.github.com/en/rest/reference/repos#list-organization-repositories
+  }
+
+  async getOrganizationRepoBranchesList<BranchItem = {}>({
+    owner,
+    repo,
+  }: GetOrganizationRepoBranchesListParams): Promise<
+    ApiResponse<BranchItem[], any>
+  > {
+    return await this.apiStore.request({
+      method: HTTPMethod.GET,
+      endpoint: `/repos/${owner}/${repo}/branches`,
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      data: {},
+    });
   }
 }

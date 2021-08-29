@@ -45,7 +45,15 @@
     color: var(--secondary-color);
 }
 
-.username:hover{
+.username:hover {
+    color: var(--blue-color);
+}
+
+.owner {
+    color: var(--secondary-color);
+}
+
+.owner:hover {
     color: var(--blue-color);
 }
 

@@ -10,8 +10,17 @@ export type RepoItem = {
   updated_at: string;
 };
 
+export type BranchItem = {
+  name: string;
+};
+
 export interface GetOrganizationReposListParams {
   organizationName: string;
+}
+
+export interface GetOrganizationRepoBranchesListParams {
+  owner: string;
+  repo: string;
 }
 
 export interface PostSomeDataPrams<ReqT> {
