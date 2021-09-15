@@ -16,9 +16,8 @@ const RepoTile: React.FC<RepoTileProps> = ({
   updated_at,
   onRepoClick,
 }) => {
-  const setDate = () => {
-    return dayjs(updated_at).format("YYYY-MM-DD");
-  };
+  const date = dayjs(updated_at).format("YYYY-MM-DD");
+
   return (
     <div className={styles.repocard} onClick={() => onRepoClick(name)}>
       <Avatar src={owner.avatar_url} alt="Avatar" className={styles.avatar} />
@@ -30,11 +29,11 @@ const RepoTile: React.FC<RepoTileProps> = ({
             <StarIcon />
             123
           </span>
-          <span>Updated at {setDate()}</span>
+          <span>Updated at {date}</span>
         </p>
       </div>
     </div>
   );
 };
 
-export default RepoTile;
+export default React.memo(RepoTile);

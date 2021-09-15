@@ -15,17 +15,10 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
 }) => {
   return (
-    <>
-      <button
-        className={cn(styles.search, {
-          [styles.disabled]: disabled,
-        })}
-        onClick={onClick}
-      >
-        {children}
-      </button>
-    </>
+    <button className={styles.search} onClick={onClick} disabled={disabled}>
+      {children}
+    </button>
   );
 };
 
-export default Button;
+export default React.memo(Button);

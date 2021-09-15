@@ -10,15 +10,13 @@ type InputProps = {
 
 const Input: React.FC<InputProps> = ({ value, placeholder, onChange }) => {
   return (
-    <>
-      <input
-        type="name"
-        value={value}
-        className={styles.input}
-        onChange={(event) => onChange(event.target.value)}
-        placeholder={placeholder}
-      />
-    </>
+    <input
+      type="name"
+      value={value}
+      className={styles.input}
+      onChange={(event) => onChange(event.target.value)}
+      placeholder={placeholder}
+    />
   );
 };
 

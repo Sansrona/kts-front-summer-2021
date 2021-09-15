@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import { gitHubStore } from "@root/root";
 import { Drawer } from "antd";
 import "antd/dist/antd.css";
 import { BranchItem } from "src/store/GitHubStore/types";
@@ -7,14 +8,27 @@ import { BranchItem } from "src/store/GitHubStore/types";
 type RepoBranchesDrawerProps = {
   visible: boolean;
   onCloseDrawer: () => void;
-  branches: BranchItem[];
+  selectedRepo: string;
 };
+
+const EXAMPLE_ORGANIZATION = "ktsstudio";
 
 const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
   visible,
   onCloseDrawer,
-  branches,
+  selectedRepo,
 }) => {
+  const [branches, setBranches] = useState<BranchItem[]>([]);
+
+  useEffect(() => {
+    selectedRepo.length &&
+      gitHubStore
+        .getOrganizationRepoBranchesList({
+          owner: EXAMPLE_ORGANIZATION,
+          repo: selectedRepo,
+        })
+        .then((result) => setBranches(result.data));
+  }, [selectedRepo, gitHubStore.getOrganizationRepoBranchesList]);
   return (
     <Drawer
       title="Branches List"
@@ -23,7 +37,7 @@ const RepoBranchesDrawer: React.FC<RepoBranchesDrawerProps> = ({
       visible={visible}
     >
       {branches.map((branch) => (
-        <p>{branch.name}</p>
+        <p key={branch.name}>{branch.name}</p>
       ))}
     </Drawer>
   );

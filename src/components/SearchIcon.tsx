@@ -17,4 +17,4 @@ const SearchIcon: React.FC = () => {
   );
 };
 
-export default React.memo(SearchIcon);
+export default SearchIcon;

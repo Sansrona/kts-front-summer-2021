@@ -7,7 +7,7 @@ import {
   RepoTile,
   SearchIcon,
 } from "@components/index";
-import { BranchItem, RepoItem } from "src/store/GitHubStore/types";
+import { RepoItem } from "src/store/GitHubStore/types";
 
 import { gitHubStore } from "../../root/root";
 import styles from "./repoSearchPage.module.css";
@@ -17,15 +17,13 @@ const EXAMPLE_ORGANIZATION = "ktsstudio";
 const RepoSearchPage: React.FC = () => {
   //Временно
   const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState();
-  const [isButtonDisabled, setButtonDisabled] = useState(false); // для кнопки
+  const [isLoading, setIsLoading] = useState(false);
   const [repos, setRepos] = useState<RepoItem[]>([]);
-  const [branches, setBranches] = useState<BranchItem[]>([]);
   const [selectedRepo, setSelectedRepo] = useState<string>("notific");
   const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
-  const handleDisabled = (): void => {
-    setButtonDisabled(!isButtonDisabled);
+  const handleLoaging = (): void => {
+    setIsLoading(true);
   };
   const handleChange = (someValue: string): void => {
     setInputValue(someValue);
@@ -49,34 +47,23 @@ const RepoSearchPage: React.FC = () => {
         setRepos(result.data);
       });
   }, []);
-  useEffect(() => {
-    gitHubStore
-      .getOrganizationRepoBranchesList({
-        owner: EXAMPLE_ORGANIZATION,
-        repo: selectedRepo,
-      })
-      .then((result) => setBranches(result.data));
-  }, [selectedRepo]);
-  // eslint-disable-next-line no-console
-  console.log(selectedRepo);
-  // eslint-disable-next-line no-console
-  console.log(branches);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.search}>
         <Input
           value={inputValue}
           onChange={handleChange}
-          placeholder={"Type Repo Name"}
+          placeholder="Type Repo Name"
         />
-        <Button disabled={isButtonDisabled} onClick={handleDisabled}>
+        <Button disabled={isLoading} onClick={handleLoaging}>
           <SearchIcon />
         </Button>
       </div>
       <div className={styles.list}>
         {repos.map((repo) => (
           <RepoTile
-            key={`${repo.name}`}
+            key={repo.name}
             onRepoClick={handleRepoTile}
             name={repo.name}
             owner={repo.owner}
@@ -85,9 +72,9 @@ const RepoSearchPage: React.FC = () => {
         ))}
       </div>
       <RepoBranchesDrawer
+        selectedRepo={selectedRepo}
         visible={isDrawerVisible}
         onCloseDrawer={closeDrawer}
-        branches={branches}
       />
     </div>
   );
