@@ -4,22 +4,13 @@ import { StarIcon, Avatar } from "@components/index";
 import dayjs from "dayjs";
 import { RepoItem } from "src/store/GitHubStore/types";
 
-import styles from "./repoTile.module.css";
+import styles from "./repoTile.module.scss";
 
-type RepoTileProps = RepoItem & {
-  onRepoClick: (thisRepo: string) => void;
-};
-
-const RepoTile: React.FC<RepoTileProps> = ({
-  owner,
-  name,
-  updated_at,
-  onRepoClick,
-}) => {
+const RepoTile: React.FC<RepoItem> = ({ owner, name, updated_at }) => {
   const date = dayjs(updated_at).format("YYYY-MM-DD");
 
   return (
-    <div className={styles.repocard} onClick={() => onRepoClick(name)}>
+    <div className={styles.repocard}>
       <Avatar src={owner.avatar_url} alt="Avatar" className={styles.avatar} />
       <div className={styles.cardtitle}>
         <p className={styles.title}>{name}</p>

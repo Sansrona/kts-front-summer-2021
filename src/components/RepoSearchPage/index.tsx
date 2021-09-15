@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import {
   Button,
@@ -7,46 +7,24 @@ import {
   RepoTile,
   SearchIcon,
 } from "@components/index";
-import { RepoItem } from "src/store/GitHubStore/types";
+import useReposContext from "@hooks/useReposContext";
+import { log } from "@utils/log";
+import { Link, Route } from "react-router-dom";
 
-import { gitHubStore } from "../../root/root";
-import styles from "./repoSearchPage.module.css";
-
-const EXAMPLE_ORGANIZATION = "ktsstudio";
+import styles from "./repoSearchPage.module.scss";
 
 const RepoSearchPage: React.FC = () => {
   //Временно
+  const { repos, isLoading, load } = useReposContext();
+  log(repos, isLoading, load);
   const [inputValue, setInputValue] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [repos, setRepos] = useState<RepoItem[]>([]);
-  const [selectedRepo, setSelectedRepo] = useState<string>("notific");
-  const [isDrawerVisible, setIsDrawerVisible] = useState(false);
 
   const handleLoaging = (): void => {
-    setIsLoading(true);
+    load(true);
   };
   const handleChange = (someValue: string): void => {
     setInputValue(someValue);
   };
-
-  const handleRepoTile = (thisRepo: string): void => {
-    setSelectedRepo(thisRepo);
-    setIsDrawerVisible(true);
-  };
-
-  const closeDrawer = (): void => {
-    setIsDrawerVisible(false);
-  };
-
-  useEffect(() => {
-    gitHubStore
-      .getOrganizationReposList({
-        organizationName: EXAMPLE_ORGANIZATION,
-      })
-      .then((result) => {
-        setRepos(result.data);
-      });
-  }, []);
 
   return (
     <div className={styles.wrapper}>
@@ -62,20 +40,18 @@ const RepoSearchPage: React.FC = () => {
       </div>
       <div className={styles.list}>
         {repos.map((repo) => (
-          <RepoTile
-            key={repo.name}
-            onRepoClick={handleRepoTile}
-            name={repo.name}
-            owner={repo.owner}
-            updated_at={repo.updated_at}
-          />
+          <Link to={`/repos/${repo.name}`} key={repo.name}>
+            <RepoTile
+              name={repo.name}
+              owner={repo.owner}
+              updated_at={repo.updated_at}
+            />
+          </Link>
         ))}
       </div>
-      <RepoBranchesDrawer
-        selectedRepo={selectedRepo}
-        visible={isDrawerVisible}
-        onCloseDrawer={closeDrawer}
-      />
+      <Route path="/repos/:repoName">
+        <RepoBranchesDrawer />
+      </Route>
     </div>
   );
 };

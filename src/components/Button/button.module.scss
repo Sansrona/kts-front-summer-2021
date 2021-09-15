@@ -9,21 +9,19 @@
     border: none;
     transition: all 0.25s;
     cursor: pointer;
-}
 
-.search:disabled {
-    background: var(--border-color);
-}
+    &:disabled {
+        background: var(--border-color);
+    }
 
-.search:hover {
-    opacity: 0.5;
-}
+    &:hover {
+        opacity: 0.5;
+    }
 
+    svg {
+        path {
+            fill: var(--white);
 
-.disabled:hover {
-    filter: none;
-}
-
-.search svg path {
-    fill: var(--white);
+        }
+    }
 }

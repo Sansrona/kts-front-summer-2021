@@ -1,8 +1,6 @@
 import React from "react";
 
-import cn from "classnames";
-
-import styles from "./button.module.css";
+import styles from "./button.module.scss";
 
 type ButtonProps = React.PropsWithChildren<{
   onClick: () => void;
