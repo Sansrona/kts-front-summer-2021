@@ -13,6 +13,8 @@ export default class GitHubStore implements IGitHubStore {
 
   async getOrganizationReposList<RepoItem = {}>({
     organizationName,
+    PER_PAGE,
+    currentPage,
   }: GetOrganizationReposListParams): Promise<ApiResponse<RepoItem[], any>> {
     return await this.apiStore.request({
       method: HTTPMethod.GET,
@@ -20,7 +22,10 @@ export default class GitHubStore implements IGitHubStore {
       headers: {
         "Content-Type": "application/json;charset=utf-8",
       },
-      data: {},
+      data: {
+        per_page: PER_PAGE,
+        page: currentPage,
+      },
     });
 
     // TODO: Здесь сделайте вызов из this.apiStore и верните результат

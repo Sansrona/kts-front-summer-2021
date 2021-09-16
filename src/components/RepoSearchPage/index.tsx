@@ -8,7 +8,6 @@ import {
   SearchIcon,
 } from "@components/index";
 import useReposContext from "@hooks/useReposContext";
-import { log } from "@utils/log";
 import { Link, Route } from "react-router-dom";
 
 import styles from "./repoSearchPage.module.scss";
@@ -16,7 +15,6 @@ import styles from "./repoSearchPage.module.scss";
 const RepoSearchPage: React.FC = () => {
   //Временно
   const { repos, isLoading, load } = useReposContext();
-  log(repos, isLoading, load);
   const [inputValue, setInputValue] = useState("");
 
   const handleLoaging = (): void => {

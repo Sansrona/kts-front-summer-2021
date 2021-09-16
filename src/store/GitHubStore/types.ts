@@ -16,6 +16,8 @@ export type BranchItem = {
 
 export interface GetOrganizationReposListParams {
   organizationName: string;
+  PER_PAGE: number;
+  currentPage: number;
 }
 
 export interface GetOrganizationRepoBranchesListParams {
