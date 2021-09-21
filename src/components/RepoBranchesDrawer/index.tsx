@@ -13,17 +13,18 @@ const RepoBranchesDrawer: React.FC = () => {
   const { repoName } = useParams<{ repoName: string }>();
   const [isLoading, setIsLoading] = useState(false);
   const history = useHistory();
+
   useEffect(() => {
     setIsLoading(true);
-    gitHubStore
-      .getOrganizationRepoBranchesList({
+    const fetchData = async () => {
+      const result = await gitHubStore.getOrganizationRepoBranchesList({
         owner: EXAMPLE_ORGANIZATION,
         repo: repoName,
-      })
-      .then((result) => {
-        setBranches(result.data);
-        setIsLoading(false);
       });
+      setBranches(result.data);
+      setIsLoading(false);
+    };
+    fetchData();
   }, [repoName]);
 
   const onCloseDrawer = (): void => {

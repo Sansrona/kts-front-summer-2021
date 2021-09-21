@@ -7,10 +7,10 @@ import {
 } from "react";
 
 import "./App.scss";
-import { RepoSearchPage } from "@components/index";
+import { RepoBranchesDrawer } from "@components/index";
+import Repos from "@pages/Repos/";
 import { gitHubStore } from "@root/root";
 import { PER_PAGE, EXAMPLE_ORGANIZATION } from "@utils/constants";
-import InfiniteScroll from "react-infinite-scroll-component";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { RepoItem } from "src/store/GitHubStore/types";
 
@@ -18,12 +18,16 @@ export type ReposContextProps = {
   repos: RepoItem[];
   isLoading: boolean;
   load: Dispatch<SetStateAction<boolean>>;
+  fetchData: () => void;
+  currentPage: number;
 };
 
 export const ReposContext = createContext<ReposContextProps>({
   repos: [],
   isLoading: false,
   load: () => {},
+  fetchData: () => {},
+  currentPage: 1,
 });
 
 const Provider = ReposContext.Provider;
@@ -50,18 +54,21 @@ const App: React.FC = () => {
     fetchData();
   }, []);
   return (
-    <Provider value={{ repos, isLoading, load: setIsLoading }}>
+    <Provider
+      value={{
+        repos,
+        isLoading,
+        load: setIsLoading,
+        fetchData,
+        currentPage: currentPage,
+      }}
+    >
       <Switch>
-        <Route path="/repos">
-          <InfiniteScroll
-            next={fetchData}
-            dataLength={currentPage * 5}
-            hasMore={true}
-            scrollThreshold={0.9}
-            loader={<h4>Загрузка...</h4>}
-          >
-            <RepoSearchPage />
-          </InfiniteScroll>
+        <Route exact path="/repos">
+          <Repos />
+        </Route>
+        <Route path="/repos/:repoName">
+          <RepoBranchesDrawer />
         </Route>
         <Redirect to="/repos" />
       </Switch>
