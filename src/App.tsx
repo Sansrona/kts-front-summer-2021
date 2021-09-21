@@ -10,7 +10,6 @@ import "./App.scss";
 import { RepoSearchPage } from "@components/index";
 import { gitHubStore } from "@root/root";
 import { PER_PAGE, EXAMPLE_ORGANIZATION } from "@utils/constants";
-import { log } from "@utils/log";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { Switch, Route, Redirect } from "react-router-dom";
 import { RepoItem } from "src/store/GitHubStore/types";
